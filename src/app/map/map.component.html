@@ -2,15 +2,15 @@
 
   <aol-interaction-default></aol-interaction-default>
 
-  <aol-view [zoom]="2">
-    <aol-coordinate [x]="5.795122" [y]="45.210225" [srid]="'EPSG:4326'"></aol-coordinate>
+  <aol-view [zoom]="7">
+    <aol-coordinate [x]="5.1539268" [y]="52.0827217" [srid]="'EPSG:4326'"></aol-coordinate>
   </aol-view>
 
   <aol-layer-tile>
     <aol-source-osm></aol-source-osm>
   </aol-layer-tile>
 
-  <aol-layer-vector [opacity]="opacity">
+  <aol-layer-vector>
     <aol-source-vector>
       <aol-feature *ngFor="let terrain of terrains">
         <aol-geometry-point>

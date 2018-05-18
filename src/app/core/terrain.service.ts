@@ -6,15 +6,18 @@ import { Observable } from 'rxjs';
 import { CacheService } from './cache.service';
 import { Terrain, TerrainFactory, TerrainResource } from './terrain';
 
+import { environment } from '../../environments/environment';
+
+
 @Injectable()
 export class TerrainService {
-  public static readonly API_ROOT = '/api/';
+  public static readonly API_BASE_URL = environment.apiBaseUrl + '/v1/';
   private CACHE_EXPIRATION_MILLIS = 60 * 1000;
 
   constructor(private httpClient: HttpClient, private cacheService: CacheService) {}
 
   public getTerrains(): Observable<Terrain[]> {
-    const url = TerrainService.API_ROOT + 'terrain/';
+    const url = TerrainService.API_BASE_URL + 'terrain/';
     const observable = new Observable<Terrain[]>(observer => {
       this.httpClient.get<TerrainResource[]>(url).subscribe(terrainResources => {
         observer.next(TerrainFactory.createTerrains(terrainResources));
