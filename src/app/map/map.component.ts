@@ -11,6 +11,7 @@ import { Terrain } from '../core/terrain';
 })
 export class MapComponent implements OnInit {
   terrains: Terrain[];
+  zoom = 8;
 
   constructor(private terrainService: TerrainService) {}
 
