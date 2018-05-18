@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CacheService } from './cache.service';
-import { CourtService } from './court.service';
+import { TerrainService } from './terrain.service';
 
 /**
  * The Core module contains global singleton services.
@@ -15,7 +15,7 @@ import { CourtService } from './court.service';
   ],
   providers: [
     CacheService,
-    CourtService
+    TerrainService
   ]
 })
 export class CoreModule {

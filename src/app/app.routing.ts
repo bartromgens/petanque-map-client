@@ -13,12 +13,12 @@ export const appRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'courts',
+        redirectTo: '',
         pathMatch: 'full'
       },
       {
-        path: 'courts',
-        loadChildren: './courts/courts.module#CourtsModule',
+        path: '',
+        loadChildren: './map/map.module#MapModule',
       },
     ],
   },

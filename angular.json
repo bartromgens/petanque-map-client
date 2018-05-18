@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "petanque-courts": {
+    "petanque-map-client": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/petanque-courts",
+            "outputPath": "dist/petanque-map-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,18 +51,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "petanque-courts:build"
+            "browserTarget": "petanque-map-client:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "petanque-courts:build:production"
+              "browserTarget": "petanque-map-client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "petanque-courts:build"
+            "browserTarget": "petanque-map-client:build"
           }
         },
         "test": {
@@ -96,7 +96,7 @@
         }
       }
     },
-    "petanque-courts-e2e": {
+    "petanque-map-client-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -104,7 +104,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "petanque-courts:serve"
+            "devServerTarget": "petanque-map-client:serve"
           }
         },
         "lint": {
@@ -119,5 +119,5 @@
       }
     }
   },
-  "defaultProject": "petanque-courts"
+  "defaultProject": "petanque-map-client"
 }
