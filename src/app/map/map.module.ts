@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SharedModule } from '../shared/shared.module';
 
-import { MapModule } from './map-routing.module';
+import { MapRoutingModule } from './map-routing.module';
 import { MapComponent } from './map.component';
 
 /**
@@ -12,7 +12,7 @@ import { MapComponent } from './map.component';
 @NgModule({
   imports: [
     SharedModule,
-    MapModule
+    MapRoutingModule
   ],
   declarations: [
     MapComponent

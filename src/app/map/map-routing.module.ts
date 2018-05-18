@@ -18,4 +18,4 @@ const mapRoutes: Routes = [
   imports: [ RouterModule.forChild(mapRoutes) ],
   exports: [ RouterModule ]
 })
-export class MapModule {}
+export class MapRoutingModule {}

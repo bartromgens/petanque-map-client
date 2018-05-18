@@ -7,20 +7,7 @@ export const appRoutes: Routes = [
   {
     path: '',
     component: FullLayoutComponent,
-    data: {
-      title: 'Home'
-    },
-    children: [
-      {
-        path: '',
-        redirectTo: '',
-        pathMatch: 'full'
-      },
-      {
-        path: '',
-        loadChildren: './map/map.module#MapModule',
-      },
-    ],
+    loadChildren: './map/map.module#MapModule',
   },
 ];
 
