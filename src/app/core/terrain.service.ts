@@ -14,7 +14,7 @@ export class TerrainService {
   constructor(private httpClient: HttpClient, private cacheService: CacheService) {}
 
   public getTerrains(): Observable<Terrain[]> {
-    const url = TerrainService.API_ROOT + 'court/';
+    const url = TerrainService.API_ROOT + 'terrain/';
     const observable = new Observable<Terrain[]>(observer => {
       this.httpClient.get<TerrainResource[]>(url).subscribe(terrainResources => {
         observer.next(TerrainFactory.createTerrains(terrainResources));
