@@ -13,7 +13,7 @@ npm install
 
 ## Development
 
-Start a local Django development server for tha api, see (https://github.com/bartromgens/petanque-map-server)[petanque-map-server]
+Start a local Django development server for tha api, see [petanque-map-server](https://github.com/bartromgens/petanque-map-server)
 
 Run a development Angular server that uses a local petanque-map-server api,
 ```
