@@ -25,6 +25,7 @@ export class Terrain {
   id: number;
   osmId: number;
   osmType: string;
+  osmUrl: string;
   location: Coordinate;
 }
 
@@ -35,6 +36,7 @@ export namespace TerrainFactory {
     terrain.id = resource.id;
     terrain.osmId = resource.osm_id;
     terrain.osmType = resource.osm_type;
+    terrain.osmUrl = resource.osm_url;
     terrain.location = new Coordinate(resource.lon, resource.lat);
     return terrain;
   }

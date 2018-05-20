@@ -1,28 +1,19 @@
+<ng-sidebar-container>
 
-<div id="wrapper" [ngClass]="{ 'toggled': sidebarOpened }">
-
-  <div id="sidebar-wrapper">
-
-    <div class="sidebar-content" [ngClass]="{'d-none': !sidebarOpened}">
-
-      <div class="container-fluid">
-
-        <div class="row">
-          test
-        </div>
-
+  <ng-sidebar [(opened)]="sidebarOpened" [dock]="false">
+    <div id="sidebar-wrapper">
+      <div class="sidebar-content">
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor="let terrain of terrains">
+            {{ terrain.osmId }}
+          </li>
+        </ul>
       </div>
-
     </div>
+  </ng-sidebar>
 
-    <button class="sidebar-toggle btn btn-default align-bottom" (click)="onSidebarToggle()">
-      <span class="fa"
-            [ngClass]="{'fa-chevron-left': sidebarOpened, 'fa-chevron-right': !sidebarOpened }"></span>
-    </button>
+  <div ng-sidebar-content class="page-content-wrapper">
 
-  </div>
-
-  <div id="page-content-wrapper">
     <aol-map>
 
       <aol-interaction-default></aol-interaction-default>
@@ -55,4 +46,10 @@
 
   </div>
 
+</ng-sidebar-container>
+
+<div class="toggle-sidebar text-right" [ngClass]="{ 'toggle-sidebar-collapsed': !sidebarOpened, 'toggle-sidebar': sidebarOpened }">
+  <div class="btn-toggle-sidebar btn btn-sm btn-primary" (click)="onSidebarToggle()">
+    <i class="fa" [ngClass]="{ 'fa-chevron-right': !sidebarOpened, 'fa-chevron-left': sidebarOpened }"></i>
+  </div>
 </div>

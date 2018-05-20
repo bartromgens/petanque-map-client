@@ -27,11 +27,6 @@ export class TerrainMapComponent implements OnInit {
   }
 
   onSidebarToggle() {
-    console.log('onSidebarToggle');
     this.sidebarOpened = !this.sidebarOpened;
-    setTimeout(() => { this.map.instance.updateSize(); }, 50);
-    setTimeout(() => { this.map.instance.updateSize(); }, 100);
-    setTimeout(() => { this.map.instance.updateSize(); }, 150);
-    setTimeout(() => { this.map.instance.updateSize(); }, 200);
   }
 }
