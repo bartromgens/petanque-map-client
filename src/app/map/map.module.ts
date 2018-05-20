@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
 import { MapRoutingModule } from './map-routing.module';
-import { MapComponent } from './map.component';
+import { TerrainMapComponent } from './terrain-map.component';
 
 /**
  * The User module contains view components related
@@ -15,7 +15,7 @@ import { MapComponent } from './map.component';
     MapRoutingModule
   ],
   declarations: [
-    MapComponent
+    TerrainMapComponent
   ],
 })
 export class MapModule { }

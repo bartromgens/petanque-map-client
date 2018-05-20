@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MapComponent } from './map.component';
+import { TerrainMapComponent } from './terrain-map.component';
 
 const mapRoutes: Routes = [
   {
     path: '',
-    component: MapComponent,
+    component: TerrainMapComponent,
     data: {
       title: 'Petanque Map'
     },

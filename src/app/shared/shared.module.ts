@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { CollapseModule } from 'ngx-bootstrap';
+
 import { AngularOpenlayersModule } from 'ngx-openlayers';
 
 /**
@@ -11,6 +13,7 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
   imports: [
     CommonModule,
     FormsModule,
+    CollapseModule,
     AngularOpenlayersModule
   ],
   declarations: [
@@ -19,6 +22,7 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
     // external shared modules
     CommonModule,
     FormsModule,
+    CollapseModule,
     AngularOpenlayersModule
   ],
 })

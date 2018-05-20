@@ -1,0 +1,58 @@
+
+<div id="wrapper" [ngClass]="{ 'toggled': sidebarOpened }">
+
+  <div id="sidebar-wrapper">
+
+    <div class="sidebar-content" [ngClass]="{'d-none': !sidebarOpened}">
+
+      <div class="container-fluid">
+
+        <div class="row">
+          test
+        </div>
+
+      </div>
+
+    </div>
+
+    <button class="sidebar-toggle btn btn-default align-bottom" (click)="onSidebarToggle()">
+      <span class="fa"
+            [ngClass]="{'fa-chevron-left': sidebarOpened, 'fa-chevron-right': !sidebarOpened }"></span>
+    </button>
+
+  </div>
+
+  <div id="page-content-wrapper">
+    <aol-map>
+
+      <aol-interaction-default></aol-interaction-default>
+
+      <aol-view [zoom]="zoom">
+        <aol-coordinate [x]="5.1539268" [y]="52.0827217" [srid]="'EPSG:4326'"></aol-coordinate>
+      </aol-view>
+
+      <aol-layer-tile>
+        <aol-source-osm></aol-source-osm>
+      </aol-layer-tile>
+
+      <aol-layer-vector>
+        <aol-source-vector>
+          <aol-feature *ngFor="let terrain of terrains">
+            <aol-geometry-point>
+              <aol-coordinate [x]="terrain.location.lon" [y]="terrain.location.lat" [srid]="'EPSG:4326'"></aol-coordinate>
+            </aol-geometry-point>
+            <aol-style>
+              <aol-style-circle [radius]="5">
+                <aol-style-stroke [color]="'black'" [width]="1"></aol-style-stroke>
+                <aol-style-fill [color]="'green'"></aol-style-fill>
+              </aol-style-circle>
+            </aol-style>
+          </aol-feature>
+        </aol-source-vector>
+      </aol-layer-vector>
+
+    </aol-map>
+
+  </div>
+
+</div>
