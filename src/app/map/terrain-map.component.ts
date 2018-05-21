@@ -23,6 +23,7 @@ export class TerrainMapComponent implements OnInit {
     this.terrainService.getTerrains().subscribe(terrains => {
       console.log(terrains);
       this.terrains = terrains;
+      this.sidebarOpened = window.innerWidth > 768;
     });
   }
 

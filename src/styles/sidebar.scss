@@ -2,28 +2,34 @@ ng-sidebar-container {
   height: $sidebar-height !important;
 }
 
+.ng-sidebar {
+  width: $sidebar-width;
+}
+
 #sidebar-wrapper {
   height: $sidebar-height;
 }
 
 .sidebar-content {
-  width: 320px;
   height: $sidebar-height;
   background-color: $body-bg;
 }
 
 .toggle-sidebar {
   top: 70px;
-  left: 317px;
+  left: $sidebar-width;
   position: absolute;
   transition: left 0.3s;
+
+  &.collapsed {
+    left: 0;
+  }
 }
 
-.toggle-sidebar-collapsed {
-  top: 70px;
-  left: -2px;
-  position: absolute;
-  transition: left 0.3s;
+.btn-toggle-sidebar {
+  padding: 0.5rem 0.25rem;
+  border-radius: 0;
+  opacity: 0.8;
 }
 
 .page-content-wrapper {
@@ -31,10 +37,4 @@ ng-sidebar-container {
   width: 100%;
   padding: 0;
   position: relative;
-}
-
-.btn-toggle-sidebar {
-  padding: 0.5rem 0.4rem;
-  border-radius: 0;
-  opacity: 0.9;
 }

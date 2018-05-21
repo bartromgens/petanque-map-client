@@ -48,7 +48,7 @@
 
 </ng-sidebar-container>
 
-<div class="toggle-sidebar text-right" [ngClass]="{ 'toggle-sidebar-collapsed': !sidebarOpened, 'toggle-sidebar': sidebarOpened }">
+<div class="toggle-sidebar text-right" [ngClass]="{ 'collapsed': !sidebarOpened }">
   <div class="btn-toggle-sidebar btn btn-sm btn-primary" (click)="onSidebarToggle()">
     <i class="fa" [ngClass]="{ 'fa-chevron-right': !sidebarOpened, 'fa-chevron-left': sidebarOpened }"></i>
   </div>
