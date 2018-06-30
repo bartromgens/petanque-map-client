@@ -14,12 +14,12 @@
 
   <div ng-sidebar-content class="page-content-wrapper">
 
-    <aol-map>
+    <aol-map (onClick)="onMapClick($event)">
 
       <aol-interaction-default></aol-interaction-default>
 
       <aol-view [zoom]="zoom">
-        <aol-coordinate [x]="5.1539268" [y]="52.0827217" [srid]="'EPSG:4326'"></aol-coordinate>
+        <aol-coordinate [x]="longitude" [y]="latitude" [srid]="'EPSG:4326'"></aol-coordinate>
       </aol-view>
 
       <aol-layer-tile>
@@ -28,9 +28,13 @@
 
       <aol-layer-vector>
         <aol-source-vector>
-          <aol-feature *ngFor="let terrain of terrains">
+          <aol-feature *ngFor="let terrain of terrains" [id]="terrain.osmId">
             <aol-geometry-point>
-              <aol-coordinate [x]="terrain.location.lon" [y]="terrain.location.lat" [srid]="'EPSG:4326'"></aol-coordinate>
+              <aol-coordinate
+                  [x]="terrain.location.lon"
+                  [y]="terrain.location.lat"
+                  [srid]="'EPSG:4326'">
+              </aol-coordinate>
             </aol-geometry-point>
             <aol-style>
               <aol-style-circle [radius]="5">

@@ -11,6 +11,13 @@ const mapRoutes: Routes = [
       title: 'Petanque Map'
     },
   },
+  {
+    path: 'terrain/:id',
+    component: TerrainMapComponent,
+    data: {
+      title: 'Petanque Map Terrain'
+    },
+  },
 ];
 
 

@@ -26,4 +26,13 @@ export class TerrainService {
     });
     return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
   }
+
+  public getTerrainById(terrains: Terrain[], osmId: number): Terrain | null {
+    for (const terrain of terrains) {
+      if (terrain.osmId === osmId) {
+        return terrain;
+      }
+    }
+    return null;
+  }
 }
