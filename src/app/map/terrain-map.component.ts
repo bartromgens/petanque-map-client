@@ -37,10 +37,13 @@ export class TerrainMapComponent implements OnInit {
         console.log('terrain id: ' + params['id']);
         if (params['id']) {
           const osmId = Number(params['id']);
-          this.terrainSelected = this.terrainService.getTerrainById(this.terrains, osmId);
-          this.longitude = this.terrainSelected.location.lon;
-          this.latitude = this.terrainSelected.location.lat;
-          this.zoom = 16;
+          const terrain = this.terrainService.getTerrainById(this.terrains, osmId);
+          if (terrain) {
+            this.terrainSelected = terrain;
+            this.longitude = terrain.location.lon;
+            this.latitude = terrain.location.lat;
+            this.zoom = 16;
+          }
         }
       });
     });
