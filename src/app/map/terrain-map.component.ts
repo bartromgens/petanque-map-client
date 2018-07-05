@@ -17,6 +17,7 @@ export class TerrainMapComponent implements OnInit {
   private static DEFAULT_LONGITUDE = 5.1539268;
   private static DEFAULT_LATITUDE = 52.0827217;
   private static DEFAULT_ZOOM = 8;
+  private static ZOOM_SELECTED = 17;
   @ViewChild(MapComponent) map: MapComponent;
   longitude = TerrainMapComponent.DEFAULT_LONGITUDE;
   latitude = TerrainMapComponent.DEFAULT_LATITUDE;
@@ -42,7 +43,7 @@ export class TerrainMapComponent implements OnInit {
             this.terrainSelected = terrain;
             this.longitude = terrain.location.lon;
             this.latitude = terrain.location.lat;
-            this.zoom = 16;
+            this.zoom = TerrainMapComponent.ZOOM_SELECTED;
           }
         }
       });
