@@ -6,6 +6,7 @@ import { Terrain } from '../core/terrain';
 
 import { MapComponent } from 'ngx-openlayers';
 import { Feature } from 'openlayers';
+import { extent } from 'openlayers';
 
 /**
  * Map page component.
@@ -18,22 +19,23 @@ export class TerrainMapComponent implements OnInit {
   private static DEFAULT_LATITUDE = 52.0827217;
   private static DEFAULT_ZOOM = 8;
   private static ZOOM_SELECTED = 17;
+
   @ViewChild(MapComponent) map: MapComponent;
+
+  terrainsVisible: Terrain[];
+  zoom = TerrainMapComponent.DEFAULT_ZOOM;
   longitude = TerrainMapComponent.DEFAULT_LONGITUDE;
   latitude = TerrainMapComponent.DEFAULT_LATITUDE;
   sidebarOpened = false;
-  terrains: Terrain[];
-  zoom = TerrainMapComponent.DEFAULT_ZOOM;
+  private terrains: Terrain[];
   private terrainSelected: Terrain;
 
   constructor(private terrainService: TerrainService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.terrainService.getTerrains().subscribe(terrains => {
-      console.log(terrains);
       this.terrains = terrains;
-      // this.sidebarOpened = window.innerWidth > 768;
-
+      this.updateTerrainsVisible(terrains);
       this.route.params.subscribe(params => {
         console.log('terrain id: ' + params['id']);
         if (params['id']) {
@@ -48,6 +50,19 @@ export class TerrainMapComponent implements OnInit {
         }
       });
     });
+  }
+
+  private updateTerrainsVisible(terrains: Terrain[]): void {
+    const mapExtent: ol.Extent = this.map.instance.getView().calculateExtent(this.map.instance.getSize());
+    this.terrainsVisible = [];
+    // if (this.getZoomLevel() < 6) {
+    //   return;
+    // }
+    for (let i = 0; i < terrains.length; i++) {
+      if (extent.containsCoordinate(mapExtent, terrains[i].getOlCoordinate())) {
+        this.terrainsVisible.push(terrains[i]);
+      }
+    }
   }
 
   onSidebarToggle(): void {
@@ -66,5 +81,15 @@ export class TerrainMapComponent implements OnInit {
       this.terrainSelected = this.terrainService.getTerrainById(this.terrains, osmId);
       console.log(this.terrainSelected);
     }
+  }
+
+  onMapMove(event): void {
+    if (this.terrains) {
+      this.updateTerrainsVisible(this.terrains);
+    }
+  }
+
+  private getZoomLevel(): number {
+    return this.map.instance.getView().getZoom();
   }
 }

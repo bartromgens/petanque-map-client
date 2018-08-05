@@ -4,7 +4,7 @@
     <div id="sidebar-wrapper">
       <div class="sidebar-content">
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let terrain of terrains">
+          <li class="list-group-item" *ngFor="let terrain of terrainsVisible">
             {{ terrain.osmId }}
           </li>
         </ul>
@@ -14,7 +14,7 @@
 
   <div ng-sidebar-content class="page-content-wrapper">
 
-    <aol-map (onClick)="onMapClick($event)">
+    <aol-map (onClick)="onMapClick($event)" (onMoveEnd)="onMapMove($event)">
 
       <aol-interaction-default></aol-interaction-default>
 
@@ -27,8 +27,14 @@
       </aol-layer-tile>
 
       <aol-layer-vector>
+        <aol-style>
+          <aol-style-circle [radius]="3">
+            <aol-style-stroke [color]="'black'" [width]="1"></aol-style-stroke>
+            <aol-style-fill [color]="'green'"></aol-style-fill>
+          </aol-style-circle>
+        </aol-style>
         <aol-source-vector>
-          <aol-feature *ngFor="let terrain of terrains" [id]="terrain.osmId">
+          <aol-feature *ngFor="let terrain of terrainsVisible" [id]="terrain.osmId">
             <aol-geometry-point>
               <aol-coordinate
                   [x]="terrain.location.lon"
@@ -36,12 +42,6 @@
                   [srid]="'EPSG:4326'">
               </aol-coordinate>
             </aol-geometry-point>
-            <aol-style>
-              <aol-style-circle [radius]="5">
-                <aol-style-stroke [color]="'black'" [width]="1"></aol-style-stroke>
-                <aol-style-fill [color]="'green'"></aol-style-fill>
-              </aol-style-circle>
-            </aol-style>
           </aol-feature>
         </aol-source-vector>
       </aol-layer-vector>

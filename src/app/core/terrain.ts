@@ -1,3 +1,4 @@
+import { proj } from "openlayers";
 
 export class Coordinate {
   lon;
@@ -27,6 +28,15 @@ export class Terrain {
   osmType: string;
   osmUrl: string;
   location: Coordinate;
+  olPoint = null;
+
+  getOlCoordinate() {
+    if (this.olPoint) {
+      return this.olPoint;
+    }
+    this.olPoint = proj.fromLonLat([this.location.lon, this.location.lat]);
+    return this.olPoint;
+  }
 }
 
 
