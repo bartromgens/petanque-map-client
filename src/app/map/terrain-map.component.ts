@@ -18,7 +18,7 @@ import { Location } from '@angular/common';
 export class TerrainMapComponent implements OnInit {
   private static DEFAULT_LONGITUDE = 5.1539268;
   private static DEFAULT_LATITUDE = 52.0827217;
-  private static DEFAULT_ZOOM = 8;
+  private static DEFAULT_ZOOM = 9;
   private static ZOOM_SELECTED = 17;
 
   @ViewChild(MapComponent, { static: true }) map: MapComponent;
