@@ -25,7 +25,7 @@
 
   <div ng-sidebar-content class="page-content-wrapper">
 
-    <aol-map (onClick)="onMapClick($event)" (onMoveEnd)="onMapMove($event)">
+    <aol-map [pixelRatio]="1" (onClick)="onMapClick($event)" (onMoveEnd)="onMapMove($event)">
 
       <aol-interaction-default></aol-interaction-default>
 
