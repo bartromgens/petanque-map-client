@@ -3,6 +3,17 @@
   <ng-sidebar [(opened)]="sidebarOpened" [dock]="false">
     <div id="sidebar-wrapper">
       <div class="sidebar-content">
+        <div *ngIf="terrainSelected" class="list-group-item">
+          <div class="font-weight-bold">
+            Terrain {{ terrainSelected.osmId }}
+          </div>
+          <div>
+            <a href="{{ terrainSelected.osmUrl }}" target="_blank">OpenStreetMap</a>
+          </div>
+          <div>
+            <a href="{{ terrainSelected.googleMapsUrl() }}" target="_blank">Google Maps</a>
+          </div>
+        </div>
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let terrain of terrainsVisible">
             {{ terrain.osmId }}

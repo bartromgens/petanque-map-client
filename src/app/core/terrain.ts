@@ -37,6 +37,10 @@ export class Terrain {
     this.olPoint = proj.fromLonLat([this.location.lon, this.location.lat]);
     return this.olPoint;
   }
+
+  googleMapsUrl() {
+    return "https://maps.google.com/?q=" + this.location.lat + "," + this.location.lon;
+  }
 }
 
 

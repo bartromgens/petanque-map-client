@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { TerrainService } from '../core/terrain.service';
 import { Terrain } from '../core/terrain';
@@ -30,7 +30,7 @@ export class TerrainMapComponent implements OnInit {
   private terrains: Terrain[];
   private terrainSelected: Terrain;
 
-  constructor(private terrainService: TerrainService, private route: ActivatedRoute) {}
+  constructor(private terrainService: TerrainService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.terrainService.getTerrains().subscribe(terrains => {
@@ -79,7 +79,8 @@ export class TerrainMapComponent implements OnInit {
       feature = <Feature> feature;
       const osmId = <number> feature.getId();
       this.terrainSelected = this.terrainService.getTerrainById(this.terrains, osmId);
-      console.log(this.terrainSelected);
+      this.router.navigate(['/terrain', osmId]);
+      this.sidebarOpened = true;
     }
   }
 
