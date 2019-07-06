@@ -27,8 +27,8 @@ export class TerrainMapComponent implements OnInit {
   longitude = TerrainMapComponent.DEFAULT_LONGITUDE;
   latitude = TerrainMapComponent.DEFAULT_LATITUDE;
   sidebarOpened = false;
+  terrainSelected: Terrain;
   private terrains: Terrain[];
-  private terrainSelected: Terrain;
 
   constructor(private terrainService: TerrainService, private route: ActivatedRoute, private router: Router) {}
 
