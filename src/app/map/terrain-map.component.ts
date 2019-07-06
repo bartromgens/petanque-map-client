@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TerrainService } from '../core/terrain.service';
@@ -7,6 +7,7 @@ import { Terrain } from '../core/terrain';
 import { MapComponent } from 'ngx-openlayers';
 import { Feature } from 'openlayers';
 import { extent } from 'openlayers';
+import { Location } from '@angular/common';
 
 /**
  * Map page component.
@@ -30,12 +31,11 @@ export class TerrainMapComponent implements OnInit {
   terrainSelected: Terrain;
   private terrains: Terrain[];
 
-  constructor(private terrainService: TerrainService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private terrainService: TerrainService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit(): void {
     this.terrainService.getTerrains().subscribe(terrains => {
       this.terrains = terrains;
-      this.updateTerrainsVisible(terrains);
       this.route.params.subscribe(params => {
         console.log('terrain id: ' + params['id']);
         if (params['id']) {
@@ -48,6 +48,7 @@ export class TerrainMapComponent implements OnInit {
             this.zoom = TerrainMapComponent.ZOOM_SELECTED;
           }
         }
+        this.updateTerrainsVisible(terrains);
       });
     });
   }
@@ -79,8 +80,8 @@ export class TerrainMapComponent implements OnInit {
       feature = <Feature> feature;
       const osmId = <number> feature.getId();
       this.terrainSelected = this.terrainService.getTerrainById(this.terrains, osmId);
-      this.router.navigate(['/terrain', osmId]);
       this.sidebarOpened = true;
+      this.location.go('/terrain/' + this.terrainSelected.osmId);
     }
   }
 

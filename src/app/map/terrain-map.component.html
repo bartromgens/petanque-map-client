@@ -37,6 +37,26 @@
         <aol-source-osm></aol-source-osm>
       </aol-layer-tile>
 
+      <aol-layer-vector *ngIf="terrainSelected">
+        <aol-style>
+          <aol-style-circle [radius]="10">
+            <aol-style-stroke [color]="'white'" [width]="4"></aol-style-stroke>
+            <aol-style-fill [color]="'blue'"></aol-style-fill>
+          </aol-style-circle>
+        </aol-style>
+        <aol-source-vector>
+          <aol-feature [id]="terrainSelected.osmId">
+            <aol-geometry-point>
+              <aol-coordinate
+                  [x]="terrainSelected.location.lon"
+                  [y]="terrainSelected.location.lat"
+                  [srid]="'EPSG:4326'">
+              </aol-coordinate>
+            </aol-geometry-point>
+          </aol-feature>
+        </aol-source-vector>
+      </aol-layer-vector>
+
       <aol-layer-vector>
         <aol-style>
           <aol-style-circle [radius]="4">
