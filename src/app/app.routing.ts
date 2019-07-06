@@ -7,7 +7,7 @@ export const appRoutes: Routes = [
   {
     path: '',
     component: FullLayoutComponent,
-    loadChildren: './map/map.module#MapModule',
+    loadChildren: () => import('./map/map.module').then(m => m.MapModule),
   },
 ];
 

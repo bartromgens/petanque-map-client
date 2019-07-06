@@ -20,7 +20,7 @@ export class TerrainMapComponent implements OnInit {
   private static DEFAULT_ZOOM = 8;
   private static ZOOM_SELECTED = 17;
 
-  @ViewChild(MapComponent) map: MapComponent;
+  @ViewChild(MapComponent, { static: true }) map: MapComponent;
 
   terrainsVisible: Terrain[];
   zoom = TerrainMapComponent.DEFAULT_ZOOM;
