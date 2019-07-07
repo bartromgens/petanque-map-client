@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { CollapseModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 
 import { AngularOpenlayersModule } from 'ngx-openlayers';
@@ -15,8 +17,10 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
     CommonModule,
     FormsModule,
     CollapseModule,
+    ModalModule,
     SidebarModule,
-    AngularOpenlayersModule
+    AngularOpenlayersModule,
+    ReactiveFormsModule
   ],
   declarations: [
   ],
@@ -25,8 +29,10 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
     CommonModule,
     FormsModule,
     CollapseModule,
+    ModalModule,
     SidebarModule,
-    AngularOpenlayersModule
+    AngularOpenlayersModule,
+    ReactiveFormsModule
   ],
 })
 export class SharedModule {

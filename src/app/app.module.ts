@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { CollapseModule, BsDropdownModule, ModalModule } from 'ngx-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 import { MatomoModule } from 'ngx-matomo';
 
@@ -20,6 +20,7 @@ import { NavModule } from './nav/nav.module';
     AppRoutingModule,
     CollapseModule.forRoot(),
     BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
     SidebarModule.forRoot(),
     CoreModule,
     NavModule,

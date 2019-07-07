@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 
 import { MapRoutingModule } from './map-routing.module';
 import { TerrainMapComponent } from './terrain-map.component';
+import { UploadImageComponent } from './upload-image.component';
 
 /**
  * The User module contains view components related
@@ -15,7 +16,8 @@ import { TerrainMapComponent } from './terrain-map.component';
     MapRoutingModule
   ],
   declarations: [
-    TerrainMapComponent
+    TerrainMapComponent,
+    UploadImageComponent
   ],
 })
 export class MapModule { }

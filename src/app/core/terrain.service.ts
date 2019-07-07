@@ -27,12 +27,29 @@ export class TerrainService {
     return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
   }
 
-  public getTerrainById(terrains: Terrain[], osmId: number): Terrain | null {
+  public getTerrain(terrainId: number): Observable<Terrain> {
+    const url = TerrainService.API_BASE_URL + 'terrain/' + terrainId;
+    const observable = new Observable<Terrain>(observer => {
+      this.httpClient.get<TerrainResource>(url).subscribe(terrainResource => {
+        console.log(terrainResource);
+        observer.next(TerrainFactory.createTerrain(terrainResource));
+        observer.complete();
+      });
+    });
+    return this.cacheService.get(url, observable, this.CACHE_EXPIRATION_MILLIS);
+  }
+
+  public getTerrainByOSMId(terrains: Terrain[], osmId: number): Terrain | null {
     for (const terrain of terrains) {
       if (terrain.osmId === osmId) {
         return terrain;
       }
     }
     return null;
+  }
+
+  public uploadTerrainImage(terrainId, filename, formData) {
+    const url = TerrainService.API_BASE_URL + 'terrain/' + terrainId + '/image/upload/' + filename;
+    return this.httpClient.post<any>(url, formData);
   }
 }

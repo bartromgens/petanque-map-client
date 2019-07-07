@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TerrainService } from '../core/terrain.service';
@@ -8,6 +8,7 @@ import { MapComponent } from 'ngx-openlayers';
 import { Feature } from 'openlayers';
 import { extent } from 'openlayers';
 import { Location } from '@angular/common';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 /**
  * Map page component.
@@ -32,8 +33,12 @@ export class TerrainMapComponent implements OnInit {
   private terrains: Terrain[];
   markerRadius: number;
   markerStrokeWidth: number;
+  modalUploadImageRef: BsModalRef;
 
-  constructor(private terrainService: TerrainService, private route: ActivatedRoute, private location: Location) {}
+  constructor(private terrainService: TerrainService,
+              private route: ActivatedRoute,
+              private location: Location,
+              private modalService: BsModalService) {}
 
   ngOnInit(): void {
     this.markerRadius = 6 * Math.sqrt(window.devicePixelRatio);
@@ -41,12 +46,11 @@ export class TerrainMapComponent implements OnInit {
     this.terrainService.getTerrains().subscribe(terrains => {
       this.terrains = terrains;
       this.route.params.subscribe(params => {
-        console.log('terrain id: ' + params['id']);
         if (params['id']) {
           const osmId = Number(params['id']);
-          const terrain = this.terrainService.getTerrainById(this.terrains, osmId);
+          const terrain = this.terrainService.getTerrainByOSMId(this.terrains, osmId);
           if (terrain) {
-            this.terrainSelected = terrain;
+            this.selectTerrain(terrain.id);
             this.longitude = terrain.location.lon;
             this.latitude = terrain.location.lat;
             this.zoom = TerrainMapComponent.ZOOM_SELECTED;
@@ -83,10 +87,17 @@ export class TerrainMapComponent implements OnInit {
     for (let feature of features) {
       feature = <Feature> feature;
       const osmId = <number> feature.getId();
-      this.terrainSelected = this.terrainService.getTerrainById(this.terrains, osmId);
+      const terrain = this.terrainService.getTerrainByOSMId(this.terrains, osmId);
+      this.selectTerrain(terrain.id);
+    }
+  }
+
+  selectTerrain(terrainId: number): void {
+    this.terrainService.getTerrain(terrainId).subscribe(response => {
+      this.terrainSelected = response;
       this.sidebarOpened = true;
       this.location.go('/terrain/' + this.terrainSelected.osmId);
-    }
+    });
   }
 
   onMapMove(event): void {
@@ -97,5 +108,9 @@ export class TerrainMapComponent implements OnInit {
 
   private getZoomLevel(): number {
     return this.map.instance.getView().getZoom();
+  }
+
+  openUploadImageModal(template: TemplateRef<any>) {
+    this.modalUploadImageRef = this.modalService.show(template);
   }
 }

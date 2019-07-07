@@ -19,6 +19,18 @@ export interface TerrainResource {
   lon: number;
   lat: number;
   url: string;
+  images: TerrainImageResource[];
+}
+
+export interface TerrainImageResource {
+  id: number;
+  file: string;
+  terrain: string;
+}
+
+export class TerrainImage {
+  id: number;
+  url: string;
 }
 
 
@@ -29,6 +41,7 @@ export class Terrain {
   osmUrl: string;
   location: Coordinate;
   olPoint = null;
+  images: TerrainImage[] | null;
 
   getOlCoordinate() {
     if (this.olPoint) {
@@ -52,7 +65,17 @@ export namespace TerrainFactory {
     terrain.osmType = resource.osm_type;
     terrain.osmUrl = resource.osm_url;
     terrain.location = new Coordinate(resource.lon, resource.lat);
+    if (resource.images) {
+      terrain.images = TerrainFactory.createTerrainImages(resource.images);
+    }
     return terrain;
+  }
+
+  export function createTerrainImage(resource: TerrainImageResource): TerrainImage {
+    const image = new TerrainImage();
+    image.id = resource.id;
+    image.url = resource.file;
+    return image;
   }
 
   export function createTerrains(resources: TerrainResource[]): Terrain[] {
@@ -61,5 +84,13 @@ export namespace TerrainFactory {
       terrains.push(createTerrain(resource));
     }
     return terrains;
+  }
+
+  export function createTerrainImages(resources: TerrainImageResource[]): TerrainImage[] {
+    const images = [];
+    for (const resource of resources) {
+      images.push(createTerrainImage(resource));
+    }
+    return images;
   }
 }

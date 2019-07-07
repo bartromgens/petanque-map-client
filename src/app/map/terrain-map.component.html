@@ -3,15 +3,21 @@
   <ng-sidebar [(opened)]="sidebarOpened" [dock]="false">
     <div id="sidebar-wrapper">
       <div class="sidebar-content">
-        <div *ngIf="terrainSelected" class="list-group-item">
-          <div class="font-weight-bold">
+        <div *ngIf="terrainSelected">
+          <div class="font-weight-bold list-group-item">
             Terrain {{ terrainSelected.osmId }}
           </div>
-          <div>
+          <div class="list-group-item">
             <a href="{{ terrainSelected.osmUrl }}" target="_blank">OpenStreetMap</a>
           </div>
-          <div>
+          <div class="list-group-item">
             <a href="{{ terrainSelected.googleMapsUrl() }}" target="_blank">Google Maps</a>
+          </div>
+          <div *ngFor="let image of terrainSelected.images" class="pt-3 list-group-item">
+            <img  src="{{ image.url }}" class="img-fluid">
+          </div>
+          <div class="text-center list-group-item">
+            <button type="button" class="btn btn-primary" (click)="openUploadImageModal(template)">Upload image</button>
           </div>
         </div>
       </div>
@@ -83,3 +89,16 @@
     <i class="fa" [ngClass]="{ 'fa-chevron-right': !sidebarOpened, 'fa-chevron-left': sidebarOpened }"></i>
   </div>
 </div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Image Upload</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalUploadImageRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-terrain-upload-image [terrainId]="terrainSelected.id"></app-terrain-upload-image>
+  </div>
+</ng-template>
