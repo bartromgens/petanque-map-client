@@ -25,7 +25,7 @@
 
   <div ng-sidebar-content class="page-content-wrapper">
 
-    <aol-map [pixelRatio]="1" (onClick)="onMapClick($event)" (onMoveEnd)="onMapMove($event)">
+    <aol-map (onClick)="onMapClick($event)" (onMoveEnd)="onMapMove($event)">
 
       <aol-interaction-default></aol-interaction-default>
 
@@ -34,13 +34,13 @@
       </aol-view>
 
       <aol-layer-tile>
-        <aol-source-osm></aol-source-osm>
+        <aol-source-osm [tilePixelRatio]="2"></aol-source-osm>
       </aol-layer-tile>
 
       <aol-layer-vector *ngIf="terrainSelected">
         <aol-style>
-          <aol-style-circle [radius]="10">
-            <aol-style-stroke [color]="'black'" [width]="2"></aol-style-stroke>
+          <aol-style-circle [radius]="2 * markerRadius">
+            <aol-style-stroke [color]="'black'" [width]="markerStrokeWidth"></aol-style-stroke>
             <aol-style-fill [color]="'orange'"></aol-style-fill>
           </aol-style-circle>
         </aol-style>
@@ -59,9 +59,9 @@
 
       <aol-layer-vector>
         <aol-style>
-          <aol-style-circle [radius]="5">
-            <aol-style-stroke [color]="'blue'" [width]="2"></aol-style-stroke>
-            <aol-style-fill [color]="'#4287f5'"></aol-style-fill>
+          <aol-style-circle [radius]="markerRadius">
+            <aol-style-stroke [color]="'blue'" [width]="markerStrokeWidth"></aol-style-stroke>
+            <aol-style-fill [color]="'#42a1f5'"></aol-style-fill>
           </aol-style-circle>
         </aol-style>
         <aol-source-vector>

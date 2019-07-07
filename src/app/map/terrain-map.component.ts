@@ -19,7 +19,7 @@ export class TerrainMapComponent implements OnInit {
   private static DEFAULT_LONGITUDE = 5.1539268;
   private static DEFAULT_LATITUDE = 52.0827217;
   private static DEFAULT_ZOOM = 9;
-  private static ZOOM_SELECTED = 17;
+  private static ZOOM_SELECTED = 18;
 
   @ViewChild(MapComponent, { static: true }) map: MapComponent;
 
@@ -30,10 +30,14 @@ export class TerrainMapComponent implements OnInit {
   sidebarOpened = false;
   terrainSelected: Terrain;
   private terrains: Terrain[];
+  markerRadius: number;
+  markerStrokeWidth: number;
 
   constructor(private terrainService: TerrainService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit(): void {
+    this.markerRadius = 5 * Math.sqrt(window.devicePixelRatio);
+    this.markerStrokeWidth = 1.5 * Math.sqrt(window.devicePixelRatio);
     this.terrainService.getTerrains().subscribe(terrains => {
       this.terrains = terrains;
       this.route.params.subscribe(params => {
