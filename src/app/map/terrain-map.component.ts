@@ -36,7 +36,7 @@ export class TerrainMapComponent implements OnInit {
   constructor(private terrainService: TerrainService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit(): void {
-    this.markerRadius = 5 * Math.sqrt(window.devicePixelRatio);
+    this.markerRadius = 6 * Math.sqrt(window.devicePixelRatio);
     this.markerStrokeWidth = 1.5 * Math.sqrt(window.devicePixelRatio);
     this.terrainService.getTerrains().subscribe(terrains => {
       this.terrains = terrains;

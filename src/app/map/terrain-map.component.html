@@ -14,11 +14,6 @@
             <a href="{{ terrainSelected.googleMapsUrl() }}" target="_blank">Google Maps</a>
           </div>
         </div>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let terrain of terrainsVisible">
-            {{ terrain.osmId }}
-          </li>
-        </ul>
       </div>
     </div>
   </ng-sidebar>
@@ -39,9 +34,9 @@
 
       <aol-layer-vector *ngIf="terrainSelected">
         <aol-style>
-          <aol-style-circle [radius]="2 * markerRadius">
+          <aol-style-circle [radius]="1.8 * markerRadius">
             <aol-style-stroke [color]="'black'" [width]="markerStrokeWidth"></aol-style-stroke>
-            <aol-style-fill [color]="'orange'"></aol-style-fill>
+            <aol-style-fill [color]="'#e3453f'"></aol-style-fill>
           </aol-style-circle>
         </aol-style>
         <aol-source-vector>
