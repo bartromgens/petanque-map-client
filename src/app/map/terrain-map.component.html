@@ -13,8 +13,11 @@
           <div class="list-group-item">
             <a href="{{ terrainSelected.googleMapsUrl() }}" target="_blank">Google Maps</a>
           </div>
-          <div *ngFor="let image of terrainSelected.images" class="pt-3 list-group-item">
-            <img  src="{{ image.url }}" class="img-fluid">
+          <div class="text-center list-group-item">
+            <app-rating [terrainId]="terrainSelected.id"></app-rating>
+          </div>
+          <div *ngFor="let image of images" class="pt-3 list-group-item text-center">
+            <a href="{{ image.url1000 }}" target="_blank"><img src="{{ image.url200 }}" class="img-fluid"></a>
           </div>
           <div class="text-center list-group-item">
             <button type="button" class="btn btn-primary" (click)="openUploadImageModal(template)">Upload image</button>

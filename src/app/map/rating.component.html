@@ -1,0 +1,18 @@
+<div>
+  <rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly" (ngModelChange)="onRateChange($event)"
+          (onHover)="hoveringOver($event)" (onLeave)="resetStar()">
+  </rating>
+</div>
+<div>
+  <small>{{ nRatings }} ratings</small>
+</div>
+
+<div *ngIf="myRating">
+  <div>
+    <rating [(ngModel)]="myRating" [max]="max" [readonly]="true">
+    </rating>
+  </div>
+  <div>
+    <small>my rating</small>
+  </div>
+</div>

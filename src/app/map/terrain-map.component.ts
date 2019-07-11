@@ -34,6 +34,7 @@ export class TerrainMapComponent implements OnInit {
   markerRadius: number;
   markerStrokeWidth: number;
   modalUploadImageRef: BsModalRef;
+  images = new Array<ImageResized>();
 
   constructor(private terrainService: TerrainService,
               private route: ActivatedRoute,
@@ -50,10 +51,10 @@ export class TerrainMapComponent implements OnInit {
           const osmId = Number(params['id']);
           const terrain = this.terrainService.getTerrainByOSMId(this.terrains, osmId);
           if (terrain) {
-            this.selectTerrain(terrain.id);
             this.longitude = terrain.location.lon;
             this.latitude = terrain.location.lat;
             this.zoom = TerrainMapComponent.ZOOM_SELECTED;
+            this.selectTerrain(terrain.id);
           }
         }
         this.updateTerrainsVisible(terrains);
@@ -79,24 +80,28 @@ export class TerrainMapComponent implements OnInit {
   }
 
   onMapClick(event): void {
-    console.log(event);
+    console.log('onMapClick');
     const features = this.map.instance.getFeaturesAtPixel(event.pixel);
     if (features === null) {
       return;
     }
-    for (let feature of features) {
-      feature = <Feature> feature;
+    if (features.length > 0) {
+      const feature = <Feature> features[0];
       const osmId = <number> feature.getId();
+      console.log('feature', osmId);
       const terrain = this.terrainService.getTerrainByOSMId(this.terrains, osmId);
       this.selectTerrain(terrain.id);
     }
   }
 
-  selectTerrain(terrainId: number): void {
-    this.terrainService.getTerrain(terrainId).subscribe(response => {
-      this.terrainSelected = response;
+  private selectTerrain(terrainId: number): void {
+    console.log('selectTerrain', terrainId);
+    this.images = new Array<ImageResized>();
+    this.terrainService.getTerrain(terrainId).subscribe(terrain => {
+      this.terrainSelected = terrain;
       this.sidebarOpened = true;
       this.location.go('/terrain/' + this.terrainSelected.osmId);
+      this.loadImages(terrain);
     });
   }
 
@@ -113,4 +118,24 @@ export class TerrainMapComponent implements OnInit {
   openUploadImageModal(template: TemplateRef<any>) {
     this.modalUploadImageRef = this.modalService.show(template);
   }
+
+  private loadImages(terrain: Terrain) {
+    console.log('loadImages');
+    for (const image of terrain.images) {
+      console.log(image.url);
+      this.terrainService.getTerrainImageUrl(image.id, 200).subscribe(imageUrl200 => {
+        const imageResized = new ImageResized();
+        this.images.push(imageResized);
+        imageResized.url200 = imageUrl200;
+        this.terrainService.getTerrainImageUrl(image.id, 1000).subscribe(imageUrl1000 => {
+          imageResized.url1000 = imageUrl1000;
+        });
+      });
+    }
+  }
+}
+
+class ImageResized {
+  url200: string;
+  url1000: string;
 }

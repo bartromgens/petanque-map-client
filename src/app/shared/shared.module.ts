@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { CollapseModule } from 'ngx-bootstrap';
+import { CollapseModule, RatingModule } from 'ngx-bootstrap';
 import { ModalModule } from 'ngx-bootstrap';
 import { SidebarModule } from 'ng-sidebar';
 
@@ -20,7 +20,8 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
     ModalModule,
     SidebarModule,
     AngularOpenlayersModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RatingModule
   ],
   declarations: [
   ],
@@ -32,7 +33,8 @@ import { AngularOpenlayersModule } from 'ngx-openlayers';
     ModalModule,
     SidebarModule,
     AngularOpenlayersModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RatingModule
   ],
 })
 export class SharedModule {

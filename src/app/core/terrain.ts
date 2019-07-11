@@ -1,4 +1,4 @@
-import { proj } from "openlayers";
+import { proj } from 'openlayers';
 
 export class Coordinate {
   lon;
@@ -19,13 +19,20 @@ export interface TerrainResource {
   lon: number;
   lat: number;
   url: string;
-  images: TerrainImageResource[];
+  images?: TerrainImageResource[];
+  ratings?: TerrainRatingResource[];
 }
 
 export interface TerrainImageResource {
   id: number;
-  file: string;
   terrain: string;
+  file: string;
+}
+
+export interface TerrainRatingResource {
+  id: number;
+  terrain: string;
+  rating: number;
 }
 
 export class TerrainImage {
@@ -33,6 +40,10 @@ export class TerrainImage {
   url: string;
 }
 
+export class TerrainRating {
+  id: number;
+  rating: number;
+}
 
 export class Terrain {
   id: number;
@@ -41,7 +52,8 @@ export class Terrain {
   osmUrl: string;
   location: Coordinate;
   olPoint = null;
-  images: TerrainImage[] | null;
+  images?: TerrainImage[];
+  ratings?: TerrainRating[];
 
   getOlCoordinate() {
     if (this.olPoint) {
@@ -52,7 +64,23 @@ export class Terrain {
   }
 
   googleMapsUrl() {
-    return "https://maps.google.com/?q=" + this.location.lat + "," + this.location.lon;
+    return 'https://maps.google.com/?q=' + this.location.lat + ',' + this.location.lon;
+  }
+
+  getRating(): number {
+    if (this.ratings.length === 0) {
+      return 0;
+    }
+
+    let rating_sum = 0;
+    for (const rate of this.ratings) {
+      rating_sum += rate.rating;
+    }
+    return rating_sum / this.ratings.length;
+  }
+
+  getRatingNumber(): number {
+    return this.ratings.length;
   }
 }
 
@@ -68,6 +96,9 @@ export namespace TerrainFactory {
     if (resource.images) {
       terrain.images = TerrainFactory.createTerrainImages(resource.images);
     }
+    if (resource.ratings) {
+      terrain.ratings = TerrainFactory.createTerrainRatings(resource.ratings);
+    }
     return terrain;
   }
 
@@ -76,6 +107,13 @@ export namespace TerrainFactory {
     image.id = resource.id;
     image.url = resource.file;
     return image;
+  }
+
+  export function createTerrainRating(resource: TerrainRatingResource): TerrainRating {
+    const rating = new TerrainRating();
+    rating.id = resource.id;
+    rating.rating = resource.rating;
+    return rating;
   }
 
   export function createTerrains(resources: TerrainResource[]): Terrain[] {
@@ -90,6 +128,14 @@ export namespace TerrainFactory {
     const images = [];
     for (const resource of resources) {
       images.push(createTerrainImage(resource));
+    }
+    return images;
+  }
+
+  export function createTerrainRatings(resources: TerrainRatingResource[]): TerrainRating[] {
+    const images = [];
+    for (const resource of resources) {
+      images.push(createTerrainRating(resource));
     }
     return images;
   }
