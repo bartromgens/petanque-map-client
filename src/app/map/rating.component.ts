@@ -16,8 +16,8 @@ export class RatingComponent implements OnInit {
 
   @Input()
   set terrainId(id) {
-    this.resetRating();
     this._terrainId = id;
+    this.updateRating();
   }
 
   constructor(private terrainService: TerrainService) { }
@@ -48,11 +48,5 @@ export class RatingComponent implements OnInit {
       this.rating = terrain.getRating();
       this.nRatings = terrain.getRatingNumber();
     });
-  }
-
-  private resetRating(): void {
-    this.rating = 0;
-    this.nRatings = 0;
-    this.myRating = null;
   }
 }
