@@ -57,7 +57,7 @@ export class TerrainMapComponent implements OnInit {
           const terrain = this.terrainService.getTerrainByOSMId(this.terrains, osmId);
           if (terrain) {
             this.centerMap(TerrainMapComponent.ZOOM_SELECTED, terrain.location.lon, terrain.location.lat);
-            this.selectTerrain(terrain.id);
+            this.selectTerrain(terrain.id, false);
           }
         }
         this.updateTerrainsVisible(terrains);
@@ -102,12 +102,12 @@ export class TerrainMapComponent implements OnInit {
     }
   }
 
-  private selectTerrain(terrainId: number): void {
+  private selectTerrain(terrainId: number, showSidebar = true): void {
     console.log('selectTerrain', terrainId);
     this.images = new Array<ImageResized>();
     this.terrainService.getTerrain(terrainId).subscribe(terrain => {
       this.terrainSelected = terrain;
-      this.sidebarOpened = true;
+      this.sidebarOpened = showSidebar;
       this.location.go('/terrain/' + this.terrainSelected.osmId);
       this.loadImages(terrain);
     });
