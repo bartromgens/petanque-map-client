@@ -91,13 +91,12 @@ export class TerrainMapComponent implements OnInit {
   onMapClick(event): void {
     console.log('onMapClick');
     const features = this.map.instance.getFeaturesAtPixel(event.pixel);
-    if (features === null) {
-      return;
-    }
-    if (features.length > 0) {
+    if (features === null || features.length === 0) {
+      this.terrainSelected = null;
+      this.sidebarOpened = false;
+    } else if (features.length > 0) {
       const feature = <Feature> features[0];
       const osmId = <number> feature.getId();
-      console.log('feature', osmId);
       const terrain = this.terrainService.getTerrainByOSMId(this.terrains, osmId);
       this.selectTerrain(terrain.id);
     }
