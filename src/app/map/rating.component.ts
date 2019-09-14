@@ -5,9 +5,9 @@ import { TerrainService } from '../core/terrain.service';
   selector: 'app-rating',
   templateUrl: './rating.component.html'
 })
-export class RatingComponent implements OnInit{
-  max = 5;
-  rate = 0;
+export class RatingComponent implements OnInit {
+  readonly MAX_RATING = 5;
+  rating = 0;
   nRatings = 0;
   myRating: number;
   isReadonly = false;
@@ -16,6 +16,7 @@ export class RatingComponent implements OnInit{
 
   @Input()
   set terrainId(id) {
+    this.resetRating();
     this._terrainId = id;
   }
 
@@ -34,9 +35,7 @@ export class RatingComponent implements OnInit{
   }
 
   onRateChange(rating: number): void {
-    console.log(rating);
     this.terrainService.addTerrainRating(this._terrainId, rating).subscribe(response => {
-      console.log(response);
       this.myRating = rating;
       this.updateRating();
     }, error1 => {
@@ -46,9 +45,14 @@ export class RatingComponent implements OnInit{
 
   private updateRating(): void {
     this.terrainService.getTerrain(this._terrainId).subscribe(terrain => {
-      console.log('update rating', terrain.getRating());
-      this.rate = terrain.getRating();
+      this.rating = terrain.getRating();
       this.nRatings = terrain.getRatingNumber();
     });
+  }
+
+  private resetRating(): void {
+    this.rating = 0;
+    this.nRatings = 0;
+    this.myRating = null;
   }
 }

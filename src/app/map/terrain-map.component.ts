@@ -142,7 +142,6 @@ export class TerrainMapComponent implements OnInit {
   private loadImages(terrain: Terrain) {
     console.log('loadImages');
     for (const image of terrain.images) {
-      console.log(image.url);
       this.terrainService.getTerrainImageUrl(image.id, 200).subscribe(imageUrl200 => {
         const imageResized = new ImageResized();
         this.images.push(imageResized);

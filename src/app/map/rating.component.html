@@ -1,5 +1,5 @@
 <div>
-  <rating [(ngModel)]="rate" [max]="max" [readonly]="isReadonly" (ngModelChange)="onRateChange($event)"
+  <rating [(ngModel)]="rating" [max]="MAX_RATING" [readonly]="isReadonly" (ngModelChange)="onRateChange($event)"
           (onHover)="hoveringOver($event)" (onLeave)="resetStar()">
   </rating>
 </div>
@@ -9,7 +9,7 @@
 
 <div *ngIf="myRating">
   <div>
-    <rating [(ngModel)]="myRating" [max]="max" [readonly]="true">
+    <rating [(ngModel)]="myRating" [max]="MAX_RATING" [readonly]="true">
     </rating>
   </div>
   <div>
