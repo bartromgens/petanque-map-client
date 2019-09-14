@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { proj } from 'openlayers';
+
 import { TerrainService } from '../core/terrain.service';
 import { Terrain } from '../core/terrain';
 
 import { MapComponent } from 'ngx-openlayers';
-import { Feature } from 'openlayers';
+import { Feature, Coordinate } from 'openlayers';
 import { extent } from 'openlayers';
 import { Location } from '@angular/common';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
@@ -47,13 +49,14 @@ export class TerrainMapComponent implements OnInit {
     this.terrainService.getTerrains().subscribe(terrains => {
       this.terrains = terrains;
       this.route.params.subscribe(params => {
+        if (params['zoom'] && params['latitude'] && params['longitude']) {
+          this.centerMap(params['zoom'], params['longitude'], params['latitude']);
+        }
         if (params['id']) {
           const osmId = Number(params['id']);
           const terrain = this.terrainService.getTerrainByOSMId(this.terrains, osmId);
           if (terrain) {
-            this.longitude = terrain.location.lon;
-            this.latitude = terrain.location.lat;
-            this.zoom = TerrainMapComponent.ZOOM_SELECTED;
+            this.centerMap(TerrainMapComponent.ZOOM_SELECTED, terrain.location.lon, terrain.location.lat);
             this.selectTerrain(terrain.id);
           }
         }
@@ -73,6 +76,12 @@ export class TerrainMapComponent implements OnInit {
         this.terrainsVisible.push(terrains[i]);
       }
     }
+  }
+
+  private centerMap(zoom: any, longitude: any, latitude: any): void {
+      const coordinateTransformed = proj.fromLonLat([parseFloat(longitude), parseFloat(latitude)]);
+      this.map.instance.getView().setCenter(coordinateTransformed);
+      this.map.instance.getView().setZoom(parseInt(zoom, 10));
   }
 
   onSidebarToggle(): void {
@@ -109,10 +118,22 @@ export class TerrainMapComponent implements OnInit {
     if (this.terrains) {
       this.updateTerrainsVisible(this.terrains);
     }
+    this.updateUrl();
+  }
+
+  private updateUrl(): void {
+    const zoom = this.getZoomLevel();
+    const coordinate = proj.toLonLat(this.getCenterCoordinates());
+    const path = `${zoom}/${coordinate[0].toFixed(6)}/${coordinate[1].toFixed(6)}/`;
+    this.location.replaceState(path);
   }
 
   private getZoomLevel(): number {
     return this.map.instance.getView().getZoom();
+  }
+
+  private getCenterCoordinates(): ol.Coordinate {
+    return this.map.instance.getView().getCenter();
   }
 
   openUploadImageModal(template: TemplateRef<any>) {

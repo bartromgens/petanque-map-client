@@ -18,6 +18,13 @@ const mapRoutes: Routes = [
       title: 'Petanque Map Terrain'
     },
   },
+  {
+    path: ':zoom/:longitude/:latitude',
+    component: TerrainMapComponent,
+    data: {
+      title: 'Petanque Map Terrain'
+    },
+  },
 ];
 
 
